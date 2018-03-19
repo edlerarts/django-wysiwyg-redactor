@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import widgets
 from django.utils.safestring import mark_safe
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse
 from django.conf import settings
 
 from redactor.utils import json_dumps
@@ -14,11 +14,11 @@ class RedactorEditor(widgets.Textarea):
         self.options.update(kwargs.pop('redactor_options', {}))
 
         if kwargs.pop('allow_file_upload', True):
-            self.options['fileUpload'] = reverse_lazy(
+            self.options['fileUpload'] = reverse(
                 'redactor_upload_file', kwargs={'upload_to': upload_to}
             )
         if kwargs.pop('allow_image_upload', True):
-            self.options['imageUpload'] = reverse_lazy(
+            self.options['imageUpload'] = reverse(
                 'redactor_upload_image', kwargs={'upload_to': upload_to}
             )
 
